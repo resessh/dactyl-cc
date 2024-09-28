@@ -1,0 +1,5 @@
+*
+!.gitignore
+!build_simple.sh
+!build.sh
+!make_things.sh
