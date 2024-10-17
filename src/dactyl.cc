@@ -26,7 +26,7 @@ Shape ConnectMainKeys(KeyData& d);
 int main() {
   printf("generating..\n");
   TransformList key_origin;
-  key_origin.Translate(-20, -40, 3);
+  key_origin.Translate(-20, -40, 7);
 
   // This is where all of the logic to position the keys is done. Everything below is cosmetic
   // trying to build the case.
@@ -109,7 +109,7 @@ int main() {
 
   // These transforms with TranslateFront are moving the connectors down in the z direction to
   // reduce the vertical jumps.
-  TransformList slash_bottom_right = d.key_slash.GetBottomRight().TranslateFront(0, -5, -3);
+  TransformList slash_bottom_right = d.key_slash.GetBottomRight().TranslateFront(0, -10, -3);
 
   shapes.push_back(TriFan(slash_bottom_right,
                           {
@@ -235,11 +235,11 @@ int main() {
         {key_2_top_right_wall, up},
 
         //{d.key_3.GetTopLeft(), up},
-        {key_3_top_right_wall, up},
+        {key_3_top_right_wall, up, 3},
 
         // {d.key_4.GetTopLeft(), up},
-        {key_4_top_right_wall, up},
-        {d.key_5.GetTopRight(), up},
+        {key_4_top_right_wall, up, 3},
+        {d.key_5.GetTopRight(), up, 3},
         {d.key_5.GetTopRight(), right},
         {d.key_5.GetBottomRight(), right},
 
@@ -269,8 +269,8 @@ int main() {
 
         {slash_bottom_right, down},
 
-        {d.key_tilde.GetBottomRight(), down},
-        {d.key_tilde.GetBottomLeft(), down},
+        {d.key_tilde.GetBottomRight(), down, 5},
+        {d.key_tilde.GetBottomLeft(), down, 5},
 
         {d.key_shift.GetBottomLeft(), down, 0, .75},
         {d.key_shift.GetBottomLeft(), left, 0, .5},
@@ -400,7 +400,7 @@ int main() {
       d.key_backspace.GetTopLeft().Apply(Cube(50, 50, 6).TranslateZ(3)).Color("red"));
 
   // Cut out hole for holder.
-  Shape holder_hole = Cube(29.0, 20.0, 12.5).TranslateZ(12 / 2);
+  Shape holder_hole = Cube(29.0, 30.0, 12.5).TranslateZ(12 / 2);
   glm::vec3 holder_location = d.key_4.GetTopLeft().Apply(kOrigin);
   holder_location.z = -0.5;
   holder_location.x += 17.5;
