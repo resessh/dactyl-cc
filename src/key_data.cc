@@ -18,6 +18,7 @@ constexpr double kSColumnRadius = 65;
 constexpr double kGColumnRadius = 65;
 constexpr double kFColumnRadius = 70;
 constexpr double kCapsColumnRadius = 60;
+constexpr double kBackspaceZSpacing = 2;
 
 // Rotates a key about the x axis until it has traveled the direct distance (not on the arc).
 Key GetRotatedKey(double radius, bool up) {
@@ -71,7 +72,7 @@ KeyData::KeyData(TransformList key_origin) {
   key_backspace.Configure([&](Key& k) {
     k.name = "key_backspace";
     k.SetParent(key_origin);
-    k.SetPosition(60, -9.18, 42.83);
+    k.SetPosition(44, -9.18, 42.83 + kBackspaceZSpacing);
     k.t().rz = -21;
     k.t().rx = 12;
     k.t().ry = -4.5;
@@ -81,7 +82,7 @@ KeyData::KeyData(TransformList key_origin) {
   key_delete.Configure([&](Key& k) {
     k.name = "key_delete";
     k.SetParent(key_backspace);
-    k.SetPosition(kDefaultKeySpacing, 0, 0);
+    k.SetPosition(kDefaultKeySpacing, 0, -kBackspaceZSpacing);
   });
 
   // Bottom side key.
@@ -101,15 +102,8 @@ KeyData::KeyData(TransformList key_origin) {
   // Top side key;
   key_alt.Configure([&](Key& k) {
     k.name = "key_alt";
-    k.SetParent(key_delete);
-    k.SetPosition(kDefaultKeySpacing, 10 + kDefaultKeySpacing, 0);
-  });
-
-  // Top left key.
-  key_ctrl.Configure([&](Key& k) {
-    k.name = "key_ctrl";
-    k.SetParent(key_delete);
-    k.SetPosition(0, 10 + kDefaultKeySpacing, 0);
+    k.SetParent(key_backspace);
+    k.SetPosition(-kDefaultKeySpacing, -9 -7, 0);
   });
 
   //
@@ -209,6 +203,9 @@ KeyData::KeyData(TransformList key_origin) {
   key_left_arrow.Configure([&](Key& k) {
     k.name = "left_arrow";
     k.SetParent(key_c);
+    k.t().rx = 12;
+    k.t().x -= 2;
+    k.t().y -= 2;
   });
 
   // S column
@@ -234,6 +231,10 @@ KeyData::KeyData(TransformList key_origin) {
   key_slash.Configure([&](Key& k) {
     k.name = "slash";
     k.SetParent(key_x);
+    k.t().rx = 7;
+    k.t().x -= 2;
+    k.t().z -= 2;
+    k.t().y -= 3;
   });
 
   // F column
@@ -253,12 +254,6 @@ KeyData::KeyData(TransformList key_origin) {
   key_v.Configure([&](Key& k) {
     k.name = "v";
     k.SetParent(key_f);
-  });
-
-  key_right_arrow = GetRotatedKey(kFColumnRadius, false);
-  key_right_arrow.Configure([&](Key& k) {
-    k.name = "right_arrow";
-    k.SetParent(key_v);
   });
 
   key_t = GetRotatedKey(kGColumnRadius, true);
@@ -302,6 +297,10 @@ KeyData::KeyData(TransformList key_origin) {
   key_tilde.Configure([&](Key& k) {
     k.name = "tilde";
     k.SetParent(key_z);
+    k.t().rx = 5;
+    k.t().x -= 2;
+    k.t().y -= 3;
+    k.t().z -= 2;
   });
 
   // Caps column

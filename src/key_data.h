@@ -40,27 +40,25 @@ struct KeyData {
   Key key_tilde;
   Key key_slash;
   Key key_left_arrow;
-  Key key_right_arrow;
 
   Key key_backspace;
   Key key_delete;
   Key key_end;
   Key key_home;
-  Key key_ctrl;
   Key key_alt;
 
   // clang-format off
   KeyGrid grid {{
-    { &key_plus,   &key_1,      &key_2,      &key_3,           &key_4,            &key_5},
-    { &key_tab,    &key_q,      &key_w,      &key_e,           &key_r,            &key_t},
-    { &key_caps,   &key_a,      &key_s,      &key_d,           &key_f,            &key_g},
-    { &key_shift,  &key_z,      &key_x,      &key_c,           &key_v,            &key_b},
-    { nullptr,     &key_tilde,  &key_slash,  &key_left_arrow,  &key_right_arrow,  nullptr},
+    { &key_plus,   &key_1,      &key_2,      &key_3,           &key_4,   &key_5},
+    { &key_tab,    &key_q,      &key_w,      &key_e,           &key_r,   &key_t},
+    { &key_caps,   &key_a,      &key_s,      &key_d,           &key_f,   &key_g},
+    { &key_shift,  &key_z,      &key_x,      &key_c,           &key_v,   &key_b},
+    { nullptr,     &key_tilde,  &key_slash,  &key_left_arrow,  nullptr,  nullptr},
   }};
   // clang-format on
 
   std::vector<Key*> thumb_keys() {
-    return {&key_delete, &key_backspace, &key_ctrl, &key_alt, &key_home, &key_end};
+    return {&key_delete, &key_backspace, &key_alt, &key_home, &key_end};
   }
 
   std::vector<Key*> all_keys() {
