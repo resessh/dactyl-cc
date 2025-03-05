@@ -435,10 +435,26 @@ int main() {
       bottom_plate_shapes.push_back(Hull(key->GetSwitch()));
     }
 
+    double switch_hole_x = 3.8;
+    double switch_hole_y = 7.2;
+    double switch_leg_hole_y = 2.6;
+    double switch_leg_hole_y_offset = switch_hole_y / 2;
+    std::vector<Shape> switch_hole_shapes = {
+      Cube(switch_hole_x, switch_hole_y, 5.0 + 0.1),
+      Cube(switch_hole_x, switch_leg_hole_y, 7.0 + 0.1).Translate(0, switch_leg_hole_y_offset, 4.25),
+      Cube(switch_hole_x, switch_leg_hole_y, 7.0 + 0.1).Translate(0, -switch_leg_hole_y_offset, 4.25),
+    };
+
     Shape bottom_plate = UnionAll(bottom_plate_shapes)
                              .Projection()
                              .LinearExtrude(3)
-                             .Subtract(UnionAll(screw_holes));
+                             .Subtract(UnionAll(screw_holes))
+                             .Add(Cube(
+                              switch_hole_x + 6,
+                              switch_hole_y + switch_leg_hole_y * 2 + 6,
+                              3.0
+                            ).Translate(4, 54, 3.1 - 0.1))
+                             .Subtract(UnionAll(switch_hole_shapes).Translate(4, 54, 0));
     bottom_plate.WriteToFile("bottom_left.scad");
     bottom_plate.MirrorX().WriteToFile("bottom_right.scad");
   }
